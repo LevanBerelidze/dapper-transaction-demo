@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
+using UnitOfWorkDemo.Core.Common;
 using UnitOfWorkDemo.Core.Orders;
 using UnitOfWorkDemo.Core.Persons;
 using UnitOfWorkDemo.Core.Products;
@@ -23,6 +24,7 @@ namespace UnitOfWorkDemo.Infra
             // which, in turn, rolls back any pending transactions. See https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlconnection.close.
             services.AddScoped(x => x.GetRequiredService<IDbConnectionFactory>().Create(shouldOpen: true));
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddScoped<ITransactionManager, TransactionManager>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
