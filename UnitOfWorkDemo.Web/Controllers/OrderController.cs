@@ -18,10 +18,10 @@ namespace UnitOfWorkDemo.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOrder(CreateOrderRequest request)
+        public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
         {
             CreateOrderCommand command = request.ToCommand();
-            mediator.Send(command);
+            await mediator.Send(command);
             return Ok();
         }
     }
